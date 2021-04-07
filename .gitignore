@@ -31,3 +31,10 @@
 
 ### VS Code ###
 /server/.vscode/
+
+### Web ###
+/web/.DS_Store
+/web/node_modules
+/web/.svelte
+/web/build
+/web/functions
