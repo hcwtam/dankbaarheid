@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +21,15 @@ public class EntryService {
         return entryRepository.findAll();
     }
 
-    public Optional<Entry> getEntry(long id) {
-        Optional<Entry> byId = entryRepository.findById(id);
-        if (byId.isEmpty()) {
+    public Optional<Entry> getEntry(String date) {
+
+        LocalDate localDate = LocalDate.parse(date);
+
+        Optional<Entry> byDate = entryRepository.findEntryByDate(localDate);
+        if (byDate.isEmpty()) {
             throw new IllegalStateException("This entry does not exist.");
         }
-        return entryRepository.findById(id);
+        return entryRepository.findEntryByDate(localDate);
     }
 
     public void createEntry(Entry entry) {
