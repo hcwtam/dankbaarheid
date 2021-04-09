@@ -2,6 +2,18 @@
  import DiaryCover from './DiaryCover.svelte'
 </script>
 
+<main>
+    <div>
+        <DiaryCover />
+    </div>
+    <div>
+        <DiaryCover />
+    </div>
+    <div>
+        <DiaryCover />
+    </div>
+</main>
+
 <style>
     main {
         height: 300px;
@@ -10,10 +22,7 @@
         justify-content: center;
         align-items: center;
     }
+    div {
+        margin: 0 50px;
+    }
 </style>
-
-<main>
-    <DiaryCover />
-    <DiaryCover />
-    <DiaryCover />
-</main>

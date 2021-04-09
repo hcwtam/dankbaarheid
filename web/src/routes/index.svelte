@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import Carousel from '$lib/Carousel.svelte';
 	import Menu from '../lib/Menu.svelte';
 </script>
@@ -14,14 +14,14 @@
 <style>
 	main {
 		padding: 1em;
-		max-width: 900px;
 		margin: 0 auto;
 	}
 
 	h1 {
 		font-size: 2.5rem;
-		font-weight: 600;
+		font-weight: 500;
 		line-height: 1.1;
+		text-align: center;
 	}
 
 	p {
