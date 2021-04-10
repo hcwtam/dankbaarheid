@@ -1,6 +1,6 @@
 const base = 'http://localhost:8080/api';
 
-async function send({ method, path, data = null, token }) {
+async function send({ method, path, data, token }) {
 	const opts = { method, headers: {} };
 
 	if (data) {
