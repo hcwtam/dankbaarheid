@@ -32,12 +32,13 @@ public class EntryService {
         return entryRepository.findEntryByDate(localDate);
     }
 
-    public void createEntry(Entry entry) {
+    public boolean createEntry(Entry entry) {
         Optional<Entry> entryByDate = entryRepository.findEntryByDate(entry.getDate());
         if (entryByDate.isPresent()) {
             throw new IllegalStateException("Entry on this date already exists.");
         }
         entryRepository.save(entry);
+        return true;
     }
 
     public void deleteEntry(long id) {
@@ -49,12 +50,17 @@ public class EntryService {
     }
 
     @Transactional
-    public void updateEntry(long id, String content) {
-        if (content.isEmpty()) {
+    public boolean updateEntry(String date, Entry inputEntry) {
+        if (inputEntry.getContent().isEmpty()) {
             throw new IllegalStateException("Content must not be empty.");
         }
-        Entry entry = entryRepository.findById(id).orElseThrow(()->new IllegalStateException("Entry with id " + id + "does not exist."));
+        LocalDate localDate = LocalDate.parse(date);
 
-        entry.setContent(content);
+        Entry entry = entryRepository.findEntryByDate(localDate).orElseThrow(()->new IllegalStateException("Entry on " + localDate + "does not exist."));
+
+        entry.setContent(inputEntry.getContent());
+        entryRepository.save(entry);
+
+        return true;
     }
 }

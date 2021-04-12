@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping(path="api/entries")
 public class EntryController {
 
@@ -23,19 +23,20 @@ public class EntryController {
         return entryService.getEntries();
     }
 
-    @GetMapping(path="{date}")
+    @GetMapping(path= {"{date}.json", "{date}"})
+
     public Optional<Entry> getEntry(@PathVariable String date) {
         return entryService.getEntry(date);
     }
 
     @PostMapping
-    public void createEntry(@RequestBody Entry entry) {
-        entryService.createEntry(entry);
+    public boolean createEntry(@RequestBody Entry entry) {
+        return entryService.createEntry(entry);
     }
 
-    @PutMapping(path="{id}")
-    public void updateEntry(@PathVariable long id, @RequestBody String content) {
-        entryService.updateEntry(id, content);
+    @PutMapping(path="{date}")
+    public boolean updateEntry(@PathVariable String date, @RequestBody Entry entry) {
+        return entryService.updateEntry(date, entry);
     }
 
     @DeleteMapping(path="{id}")

@@ -14,7 +14,9 @@ public class EntryConfig {
         return args -> {
             Entry firstPost = new Entry(
                     LocalDate.of(2021, 4, 5),
-                    "My first post let's gooooo"
+                    "My first post let's gooooo\n" +
+                            "============================\n" +
+                            "Testing markdown"
             );
             Entry secondPost = new Entry(
                     LocalDate.of(2021, 4, 6),
