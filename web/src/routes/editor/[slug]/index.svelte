@@ -4,16 +4,31 @@
 
 		const { slug } = page.params;
 		const entry = await api.get(`entries/${slug}`, null);
-		return {
-			props: { entry, slug }
-		};
+		if (entry.content) {
+			return {
+				props: { entry, slug }
+			}
+		} else {
+			return {
+				props: { entry: null, slug }
+			};
+		}
 	}
 </script>
 
 <script>
+import BookLayout from '$lib/BookLayout.svelte';
+
 	import Editor from './_Editor.svelte';
 	export let slug;
 	export let entry;
 </script>
 
-<Editor {entry} {slug}/>
+<svelte:head>
+	<title>Edit Entry on {slug}</title>
+</svelte:head>
+
+<h1>Writing entry on {slug}</h1>
+<BookLayout>
+	<Editor {entry} {slug}/>
+</BookLayout>

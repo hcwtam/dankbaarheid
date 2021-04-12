@@ -1,10 +1,25 @@
 <script>
+    export let date;
+    export let monthEntries;
     export let small = false;
+
+    function appendZeroIfSingleDigit (num) {
+        //num is number type
+        return num < 10 ? "0" + num.toString() : num.toString()
+        
+    }
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYearAndMonth = currentYear.toString() + "-" + appendZeroIfSingleDigit(currentMonth.toString()) // e.g. "2021-04"
+    const lastEntryDate = monthEntries[monthEntries.length - 1].date;
 </script>
 
 
-    <a href="entries/2021-04-05">
+    <a href="entries/{currentYearAndMonth === date ? currentYearAndMonth + "-" + appendZeroIfSingleDigit(currentDate.getDate().toString()):lastEntryDate}">
         <div class='container'  class:small>
+            {date}
         </div>
     </a>
 

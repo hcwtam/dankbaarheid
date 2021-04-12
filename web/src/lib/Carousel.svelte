@@ -1,17 +1,14 @@
 <script>
  import DiaryCover from './DiaryCover.svelte'
+ export let entries;
 </script>
 
 <main>
+    {#each Object.entries(entries) as [date, monthEntries]}
     <div>
-        <DiaryCover />
+        <DiaryCover {date} {monthEntries}/>
     </div>
-    <div>
-        <DiaryCover />
-    </div>
-    <div>
-        <DiaryCover />
-    </div>
+    {/each}
 </main>
 
 <style>

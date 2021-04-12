@@ -1,48 +1,63 @@
 <script>
-	// import { goto } from '$app/navigation';
-	// import ListErrors from '$lib/ListErrors.svelte';
-	// import { ajax } from '$lib/actions.js';
+import { valueTemplate } from "./_valueTemplate";
+import * as api from '$lib/api.js'
+import { goto } from '$app/navigation';
+
 	export let entry;
 	export let slug;
+	let value = valueTemplate;
+	if (entry) value = entry.content;
 
-	// const onsubmit = () => {
-	// 	publishing = true;
-	// };
-	// const onresponse = async (res) => {
-	// 	if (res.ok) {
-	// 		goto(res.headers.get('location'));
-	// 	}
-	// };
+	const onSubmit = async () => {
+		const send = entry ? api.put : api.post;
+		const body = {
+				content: value,
+				date: slug
+			}
+		const res = await send(entry?`entries/${slug}`:'entries', body);
+		if (res) goto(`/entries/${slug}`)
+	};
+	const onresponse = async (res) => {
+		if (res.ok) {
+			goto(res.headers.get('location'));
+		}
+	};
 </script>
 
-<div class="editor-page">
-	<div class="container page">
-		<div class="row">
-			<div class="col-md-10 offset-md-1 col-xs-12">
-				<!-- <ListErrors {errors} /> -->
+<form
+	on:submit|preventDefault={onSubmit}
+>
 
-				<form
-					action={slug ? `/entry/${slug}.json?_method=put` : `/entry.json`}
-					method="post"
-				>
-					<fieldset>
+			<!-- svelte-ignore a11y-autofocus -->
+			<textarea
+				class="content"
+				type="text"
+				placeholder="What's this entry about?"
+				autofocus
+				bind:value={value}
+			/>
 
-						<fieldset class="form-group">
-							<input
-								class="form-control"
-                                rows="8"
-								type="text"
-								placeholder="What's this entry about?"
-								bind:value={entry.content}
-							/>
-						</fieldset>
+		<button>
+			Publish Entry
+		</button>
 
-						<button class="btn btn-lg pull-xs-right btn-primary">
-							Publish Entry
-						</button>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+</form>
+
+
+<style>
+	.content {
+		height: 600px;
+		width: 100%;
+		font-family: -apple-system, BlinkMacSystemFont, 'Roboto Slab', Roboto, Oxygen, Ubuntu, Cantarell,
+		'Open Sans', 'Helvetica Neue', sans-serif;
+		border: none;
+		background-color: inherit;
+		overflow-y: auto;
+		resize: none;
+		padding: 20px;
+	}
+	form {
+		border: none;
+	}
+
+</style>

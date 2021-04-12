@@ -1,13 +1,32 @@
+<script context="module">
+	export async function load({ fetch }) {
+		const entries = await fetch('/entries').then((r) => r.json())
+		return {
+		props: { entries }
+		}
+	}
+    
+</script>
+
 <script>
 	import Carousel from '$lib/Carousel.svelte';
-	import Menu from '../lib/Menu.svelte';
+	import Menu from '$lib/Menu.svelte';
+	import {categoriseEntries} from '$lib/utils.js'
+
+
+	export let entries;
+	$: categorisedEntries = categoriseEntries(entries)
 </script>
+
+<svelte:head>
+	<title>dankbaarheid</title>
+</svelte:head>
 
 <main>
 	<h1>My diaries</h1>
 
-	<Carousel />
-	<Menu />
+	<Carousel entries={categorisedEntries}/>
+	<Menu entries={categorisedEntries}/>
 
 </main>
 

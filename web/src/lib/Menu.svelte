@@ -1,35 +1,43 @@
 <script>
-import DiaryCover from "./DiaryCover.svelte";
+    import DiaryCover from "./DiaryCover.svelte";
+    import {dateStringToMonth, dateStringToYear} from '$lib/utils'
 
-    let current = "2021"
+    export let entries;
+    let current = new Date().getFullYear().toString();
+
+    const yearList = new Set()
+    for (let date in entries) {
+        yearList.add(dateStringToYear(date));
+    }
+    let yearArray = [...yearList]
 </script>
 
 <div class='menu'>
     <div class='yearButtons'>
+        {#each yearArray as year}
         <button 
-            class:selected='{current === '2021'}' 
-            on:click="{()=>current='2021'}"
-        >
-            2021
-        </button>
-        <button 
-            class:selected='{current === '2020'}' 
-            on:click="{()=>current='2020'}"
-        >
-            2020
-        </button>
+        class:selected='{current === year}' 
+        on:click="{()=>current=year}"
+    >
+        {year}
+    </button>
+        {/each}
     </div>
     <ul>
+        {#each Object.entries(entries) as [date, monthEntries]}
+    <div>
         <li>
-            <DiaryCover small/>
+            <DiaryCover {date} {monthEntries} small/>
             <div class='info'>
                 <div>
-                    <h2>April</h2>
-                    <div>21 entries</div>
+                    <h2>{dateStringToMonth(date)}</h2>
+                    <div>{monthEntries.length} entries</div>
                 </div>
-                <div class='lastEntry'>9th April 21</div>
+                <div class='lastEntry'>{monthEntries[monthEntries.length - 1].date}</div>
             </div>
         </li>
+    </div>
+    {/each}
     </ul>
 </div>
 
@@ -78,7 +86,7 @@ import DiaryCover from "./DiaryCover.svelte";
         padding: 10px;
         min-width: 300px;
         width: 22%;
-        height: 130px;
+        height: 150px;
         margin-bottom: 20px;
         display: flex;
         cursor: pointer;
