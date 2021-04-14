@@ -29,6 +29,12 @@ import BookLayout from '$lib/BookLayout.svelte';
 </svelte:head>
 
 <h1>Writing entry on {slug}</h1>
-<BookLayout>
+<BookLayout date={slug}>
 	<Editor {entry} {slug}/>
 </BookLayout>
+
+<style>
+	h1 {
+		padding: 0 20px;
+	}
+</style>

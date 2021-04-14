@@ -77,8 +77,8 @@
         padding-top: 20px;
         flex-wrap: wrap;
         justify-content: space-between;
-        height: 340px;
         overflow-y: auto;
+        height: calc(100vh - 593px)
     }
 
     li {

@@ -35,13 +35,36 @@
 </svelte:head>
 
 <h1>{slug}</h1>
-<p>{JSON.stringify(entry)}</p>
-<a href='/editor/{slug}'>Edit entry</a>
 
-<BookLayout>
+<BookLayout date={slug}>
 	{#if entry}
 		{@html markup}
-	{:else}
-		<a href='/editor/{slug}'>Create journal post</a>
 	{/if}
+	<a href='/editor/{slug}'>
+		<img src='/edit.svg' alt='edit button' />
+	</a>
 </BookLayout>
+
+<style>
+	img {
+		top: 20px;
+		right: 25px;
+		position: absolute;
+		width: 45px;
+		height: 45px;
+		cursor: pointer;
+		transition: 0.1s all ease-out;
+		background-color: rgb(245, 245, 245);
+		border-radius: 5px;
+		padding: 10px;
+	}
+
+	img:hover {
+		transform: scale(1.1);
+		background-color: rgb(235, 235, 235);
+	}
+
+	h1 {
+		padding: 0 20px;
+	}
+</style>

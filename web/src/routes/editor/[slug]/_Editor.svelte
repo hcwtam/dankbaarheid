@@ -17,11 +17,7 @@ import { goto } from '$app/navigation';
 		const res = await send(entry?`entries/${slug}`:'entries', body);
 		if (res) goto(`/entries/${slug}`)
 	};
-	const onresponse = async (res) => {
-		if (res.ok) {
-			goto(res.headers.get('location'));
-		}
-	};
+
 </script>
 
 <form
@@ -46,6 +42,7 @@ import { goto } from '$app/navigation';
 
 <style>
 	.content {
+		position: relative;
 		height: 600px;
 		width: 100%;
 		font-family: -apple-system, BlinkMacSystemFont, 'Roboto Slab', Roboto, Oxygen, Ubuntu, Cantarell,
@@ -56,8 +53,20 @@ import { goto } from '$app/navigation';
 		resize: none;
 		padding: 20px;
 	}
+
 	form {
 		border: none;
+	}
+
+	button {
+		position: absolute;
+		right: 19px;
+		top: 19px;
+		background-color: #ad573c;
+		color: #fff;
+		padding: 10px;
+		border-radius: 5px;
+		box-shadow: rgba(161, 112, 80, 0.7) 0 4px 5px;
 	}
 
 </style>

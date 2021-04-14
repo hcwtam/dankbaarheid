@@ -13,7 +13,6 @@
 
 <style>
     main {
-        height: 300px;
         margin: 30px 0;
         display: flex;
         justify-content: center;

@@ -37,10 +37,10 @@
 	}
 
 	h1 {
-		font-size: 2.5rem;
+		font-size: 2rem;
 		font-weight: 500;
 		line-height: 1.1;
-		text-align: center;
+		margin: 0 0 10px;
 	}
 
 	p {
