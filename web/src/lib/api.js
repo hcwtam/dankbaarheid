@@ -1,4 +1,4 @@
-const base = 'http://174.138.1.207:8080/api';
+const base = 'https://174.138.1.207:8080/api';
 
 async function send({ method, path, data, token }) {
 	const opts = { method, headers: {} };
